@@ -1,4 +1,4 @@
-import java.lang.math.pow;
+package simplex;
 
 class Simplex{
 
@@ -26,7 +26,7 @@ class Simplex{
 			if( i == selectedColumn ){	// ALLOWED ELEMENT
 				continue;
 			}else{
-				simplexTable[selectedLine][i].setBottom((simplexTable[selectedLine][i].getTop)*inverse);
+				simplexTable[selectedLine][i].setBottom((simplexTable[selectedLine][i].getTop())*inverse);
 			}
 
 			//MULTIPLY COLUMNS
@@ -34,7 +34,7 @@ class Simplex{
 				if( i == selectedLine ){   // ALLOWED ELEMENT
 					continue;
 				}else{
-					aux = simplexTable[i][selectedColumn].setBottom((simplexTable[i][selectedColumn].getTop)*inverse);
+					simplexTable[i][selectedColumn].setBottom((simplexTable[i][selectedColumn].getTop())*inverse);
 				}
 			}
 		}
