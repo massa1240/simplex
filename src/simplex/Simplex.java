@@ -13,6 +13,10 @@ class Simplex{
 
 		return instance;
 	}
+	
+	public void start(Expression e) {
+		
+	}
 
 	private void changeAlgorithm(Cell[][] simplexTable, double allowedElement, int selectedLine, int selectedColumn){
 		//Calculates the multiplicative inverse of the allowed element
