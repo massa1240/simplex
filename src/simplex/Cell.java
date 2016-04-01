@@ -1,3 +1,5 @@
+package simplex;
+
 class Cell{
 	
 	private double top, bottom;
@@ -20,11 +22,11 @@ class Cell{
 		this.bottom = bottom;
 	}
 
-	public int getTop() {
+	public double getTop() {
 		return this.top;
 	}
 
-	public int getBottom() {
+	public double getBottom() {
 		return this.bottom;
 	}
 
