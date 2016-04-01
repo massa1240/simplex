@@ -17,7 +17,7 @@ public class ExpressionTest {
 		Expression e;
 		
 		exception.expect(Exception.class);
-		exception.expectMessage("Objective must be MIN or MAX.");
+		exception.expectMessage("Invalid objective.");
 		e = new Expression(Expression.OBJECTIVE_MAX+1, new int[0], new int[0][0], new int[0], new int [0]);	
 	}
 	
@@ -26,7 +26,7 @@ public class ExpressionTest {
 		Expression e;
 		
 		exception.expect(Exception.class);
-		exception.expectMessage("Objective must be MIN or MAX.");
+		exception.expectMessage("Invalid objective.");
 		e = new Expression(Expression.OBJECTIVE_MIN-1, new int[0], new int[0][0], new int[0], new int [0]);	
 	}
 	
@@ -100,5 +100,15 @@ public class ExpressionTest {
 		exception.expect(Exception.class);
 		exception.expectMessage("Number of decision variables or constraints incompatible.");
 		e = new Expression(Expression.OBJECTIVE_MAX, new int[2], new int[3][2], new int[3], new int [2]);
+	}
+	
+	@Test
+	public void throwConstraintSignException() throws Exception {
+		Expression e;
+		
+		exception.expect(Exception.class);
+		exception.expectMessage("Invalid constraint sign.");
+		int[] constraintSign = {Expression.CONSTRAINT_SIGN_EQ, Expression.CONSTRAINT_SIGN_LT+1, Expression.CONSTRAINT_SIGN_GT};
+		e = new Expression(Expression.OBJECTIVE_MAX, new int[2], new int[3][2], constraintSign, new int [3]);
 	}
 }
