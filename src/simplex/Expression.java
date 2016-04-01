@@ -18,8 +18,12 @@ public class Expression {
 		int nDecVariables = objectiveFunction.length;
 		int nConstraints = constraints.length;
 		
-		if ( objective != OBJECTIVE_MIN || objective != OBJECTIVE_MIN ) {
+		if ( objective != OBJECTIVE_MIN && objective != OBJECTIVE_MAX ) {
 			throw new Exception("Objective must be MIN or MAX.");
+		}
+		
+		if ( objectiveFunction.length == 0 || constraints.length == 0 || constraintSigns.length == 0 || b.length == 0 ) {
+			throw new Exception("Neither objective function, constratints nor constratint signs length should be 0.");
 		}
 		
 		if ( nDecVariables != constraints[0].length || nConstraints != constraintSigns.length || nConstraints != b.length ) {
