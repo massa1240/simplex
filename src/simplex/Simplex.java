@@ -25,6 +25,7 @@ public class Simplex{
 	public int[] start(Expression e) throws Exception {
 		table = new SimplexTable(e);
         firstPhase();
+        secondPhase();
 
         return new int[0];
 	}
@@ -45,4 +46,18 @@ public class Simplex{
             table.changeAlgorithm(permittedLine, permittedColumn);
         }
 	}
+
+    private void secondPhase() throws Exception {
+        int permittedColumn;
+        while( (permittedColumn = table.getPositiveFXIndex()) != -1 ) {
+            if ( permittedColumn == -2) {
+                status = STATUS_UNLIMITED;
+                throw new Exception("Unlimited solution.");
+            }
+            int permittedLine;
+
+            permittedLine = table.getPermittedLine(permittedColumn);
+            table.changeAlgorithm(permittedLine, permittedColumn);
+        }
+    }
 }

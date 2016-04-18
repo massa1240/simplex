@@ -17,6 +17,17 @@ class SimplexTable {
         return -1;
     }
 
+    public int getPositiveFXIndex() {
+        for(int i = 1; i < simplexTable[0].length; i+=1 ) {
+            if ( simplexTable[0][i].getTop() == 0 ) {//unlimited solution
+                return -2;
+            } else if ( simplexTable[0][i].getTop() > 0 ) { // if fx is positive
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public int getColumnWithNegativeElementOf(int line) {
         for(int i = 1; i < simplexTable[line].length; i+=1 ) {
             if ( simplexTable[line][i].getTop() < 0 ) { // if member is negative
