@@ -53,4 +53,24 @@ class SimplexTable {
         }
     }
 
+    public int getPermittedLine(int permittedColumn) {
+        int permittedLine = -1;
+        double minQuotient = Double.MAX_VALUE;
+
+        for(int i = 1; i < simplexTable.length; i+=1) {
+            double freeMember = simplexTable[i][0].getTop();
+            double permittedElement = simplexTable[i][permittedColumn].getTop();
+
+            if ( (freeMember <= 0 && permittedElement < 0) || (freeMember >= 0 && permittedElement > 0)) {
+                double x = freeMember / permittedElement;
+                if ( x < minQuotient ) {
+                    minQuotient = x;
+                    permittedLine = i;
+                }
+            }
+        }
+
+        return permittedLine;
+    }
+
 }
