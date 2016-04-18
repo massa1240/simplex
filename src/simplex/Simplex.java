@@ -1,6 +1,6 @@
 package simplex;
 
-class Simplex{
+public class Simplex{
 
 	private static Simplex instance; 
 
