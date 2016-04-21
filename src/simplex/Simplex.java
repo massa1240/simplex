@@ -27,6 +27,7 @@ public class Simplex{
         firstPhase();
         secondPhase();
 
+        this.status = STATUS_OPTIMAL_FOUND;
         return table.getCurrentVariablesValues();
 	}
 
@@ -60,4 +61,8 @@ public class Simplex{
             table.changeAlgorithm(permittedLine, permittedColumn);
         }
     }
+
+	public int getStatus() {
+		return status;
+	}
 }
