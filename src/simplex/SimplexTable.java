@@ -12,8 +12,8 @@ class SimplexTable {
         this.createSimplexTable();
         this.populateObjectiveFunction();
         this.populateConstraints();
-        this.setBasicVariables();
         this.setNonBasicVariables();
+        this.setBasicVariables();
     }
 
     private void createSimplexTable() {
@@ -57,13 +57,13 @@ class SimplexTable {
     
     private void setBasicVariables() {
     	for (int i = 0; i < basicVariables.length; i+=1 ) {
-    		basicVariables[i] = i;
+    		basicVariables[i] = i + nonBasicVariables.length;
     	}
     }
     
     private void setNonBasicVariables() {
     	for (int i = 0; i < nonBasicVariables.length; i+=1 ) {
-    		nonBasicVariables[i] = i + basicVariables.length;
+    		nonBasicVariables[i] = i;
     	}
     }
 
@@ -206,9 +206,34 @@ class SimplexTable {
         return permittedLine;
     }
 
+    public double[] getCurrentVariablesValues() {
+        double[] values = new double[basicVariables.length + nonBasicVariables.length+1];
+
+        values[0] = simplexTable[0][0].getTop();
+        for ( int i = 0; i < basicVariables.length; i+=1 ) {
+            int index = basicVariables[i];
+            values[index+1] = simplexTable[i+1][0].getTop();
+        }
+
+        for ( int j = 0; j < nonBasicVariables.length; j+=1 ) {
+            int index = nonBasicVariables[j];
+            values[index+1] = simplexTable[0][j+1].getTop();
+        }
+
+        return values;
+    }
+
 
     public Cell[][] getSimplexTable() {
         return simplexTable;
     }
+
+	public int[] getBasicVariables() {
+		return basicVariables;
+	}
+
+	public int[] getNonBasicVariables() {
+		return nonBasicVariables;
+	}
 
 }

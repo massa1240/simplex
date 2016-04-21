@@ -22,12 +22,12 @@ public class Simplex{
 		return instance;
 	}
 	
-	public int[] start(Expression e) throws Exception {
+	public double[] start(Expression e) throws Exception {
 		table = new SimplexTable(e);
         firstPhase();
         secondPhase();
 
-        return new int[0];
+        return table.getCurrentVariablesValues();
 	}
 
 	private void firstPhase() throws Exception {
