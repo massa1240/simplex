@@ -2,7 +2,6 @@ package main;
 
 import simplex.Expression;
 import simplex.Simplex;
-import sun.java2d.pipe.SpanShapeRenderer;
 
 public class Main {
 
