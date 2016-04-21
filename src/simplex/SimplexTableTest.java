@@ -72,4 +72,21 @@ public class SimplexTableTest {
 		assertEquals(0, table[3][1].getTop(), 1);
 		assertEquals(1, table[3][2].getTop(), 1);
 	}
+	
+	@Test
+	public void getCurrentVariablesValues() throws Exception {
+
+		Expression e = getDefaultExpression();
+		SimplexTable st = new SimplexTable(e);
+		st.changeAlgorithm(2, 1);
+		double[] answer = st.getCurrentVariablesValues();
+		assertEquals(6, answer.length);
+		
+		assertEquals(-320, answer[0], 1);
+		assertEquals(4, answer[1], 1);
+		assertEquals(20, answer[2], 1);
+		assertEquals(-8, answer[3], 1);
+		assertEquals(-20, answer[4], 1);
+		assertEquals(3, answer[5], 1);
+	}
 }
