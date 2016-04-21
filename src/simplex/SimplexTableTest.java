@@ -74,6 +74,23 @@ public class SimplexTableTest {
 	}
 	
 	@Test
+	public void swapBasicWithNonBasicVariable() throws Exception {
+		Expression e = getDefaultExpression();
+		SimplexTable st = new SimplexTable(e);
+		st.changeAlgorithm(2, 1);
+		
+		int[] basicVariables = st.getBasicVariables();
+		int[] nonBasicVariables = st.getNonBasicVariables();
+		
+		assertEquals(nonBasicVariables[0], 3);//x4
+		assertEquals(nonBasicVariables[1], 1);//x2
+		
+		assertEquals(basicVariables[0], 2);//x3
+		assertEquals(basicVariables[1], 0);//x1
+		assertEquals(basicVariables[2], 4);//x5
+	}
+	
+	@Test
 	public void getCurrentVariablesValues() throws Exception {
 
 		Expression e = getDefaultExpression();
@@ -82,11 +99,11 @@ public class SimplexTableTest {
 		double[] answer = st.getCurrentVariablesValues();
 		assertEquals(6, answer.length);
 		
-		assertEquals(-320, answer[0], 1);
-		assertEquals(4, answer[1], 1);
-		assertEquals(20, answer[2], 1);
-		assertEquals(-8, answer[3], 1);
-		assertEquals(-20, answer[4], 1);
-		assertEquals(3, answer[5], 1);
+		assertEquals(-320, answer[0], 1);//f(x)
+		assertEquals(4, answer[1], 1);//x1
+		assertEquals(20, answer[2], 1);//x2
+		assertEquals(-8, answer[3], 1);//x3
+		assertEquals(-20, answer[4], 1);//x4
+		assertEquals(3, answer[5], 1);//x5
 	}
 }
