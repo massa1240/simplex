@@ -102,25 +102,88 @@ class SimplexTable {
         double inverse = Math.pow(allowedElement, -1);
         simplexTable[permittedLine][permittedColumn].setBottom(inverse);
 
-        // Multiply each element from the line and column selecteds
+        // Multiply each element from the selected line and column
         // by the allowed element and stores on the bottom cell
-        for( int i = 0; i < simplexTable.length; i++ ){
-            //MULTIPLY LINES
-            if( i == permittedColumn ){	// ALLOWED ELEMENT
-                continue;
-            }else{
-                simplexTable[permittedLine][i].setBottom((simplexTable[permittedLine][i].getTop())*inverse);
-            }
+        multiplyPermittedLineByInverse(permittedLine, permittedColumn, inverse);
+        multiplyPermittedColumnByNegativeInverse(permittedLine, permittedColumn, inverse);
 
-            //MULTIPLY COLUMNS
-            if( i < simplexTable[0].length ){
-                if( i == permittedLine ){   // ALLOWED ELEMENT
-                    continue;
-                }else{
-                    simplexTable[i][permittedColumn].setBottom((simplexTable[i][permittedColumn].getTop())*inverse);
+        // for every lower sub-cells, multiply the top of the permitted row by bottom of permitted column
+        multiplyLowerSubcells(permittedLine, permittedColumn);
+
+        redoTable(permittedLine, permittedColumn);
+
+        swapBasicWithNonBasicVariable(permittedLine, permittedColumn);
+
+    }
+
+    private void multiplyPermittedLineByInverse(int permittedLine, int permittedColumn, double inverse) {
+        for ( int j = 0; j < simplexTable[0].length; j+=1 ) {
+            if( j != permittedColumn ){	// IS NOT ALLOWED ELEMENT
+                simplexTable[permittedLine][j].setBottom((simplexTable[permittedLine][j].getTop())*inverse);
+            }
+        }
+    }
+
+    private void multiplyPermittedColumnByNegativeInverse(int permittedLine, int permittedColumn, double inverse) {
+        for( int i = 0; i < simplexTable.length; i+=1 ){
+            if( i != permittedLine ){   // IS NOT ALLOWED ELEMENT
+                simplexTable[i][permittedColumn].setBottom((simplexTable[i][permittedColumn].getTop())*-inverse);
+            }
+        }
+    }
+
+    private void multiplyLowerSubcells(int permittedLine, int permittedColumn) {
+        for ( int i = 0; i < simplexTable.length; i+=1 ) {
+            if ( i != permittedLine ) {
+                for (int j = 0; j < simplexTable[i].length; j += 1) {
+                    if (j != permittedColumn) {
+                        double value = simplexTable[permittedLine][j].getTop() * simplexTable[i][permittedColumn].getBottom();
+                        simplexTable[i][j].setBottom(value);
+                    }
                 }
             }
         }
+    }
+
+    private void redoTable(int permittedLine, int permittedColumn) {
+        Cell[][] newTable = new Cell[simplexTable.length][simplexTable[0].length];
+        
+        copySubCells(newTable, permittedLine, permittedColumn);
+        sumLeftSubCells(newTable, permittedLine, permittedColumn);
+
+        simplexTable = newTable;
+    }
+
+    private void copySubCells(Cell[][] newTable, int permittedLine, int permittedColumn) {
+        // copy lower sub-cells of permitted line and column to upper sub-cells
+        for ( int i = 0; i < newTable.length; i+=1 ) {
+            newTable[i][permittedColumn] = new Cell(simplexTable[i][permittedColumn].getBottom());
+        }
+
+        for ( int j = 0; j < newTable[0].length; j+=1 ) {
+            newTable[permittedLine][j] = new Cell(simplexTable[permittedLine][j].getBottom());
+        }
+    }
+
+    private void sumLeftSubCells(Cell[][] newTable, int permittedLine, int permittedColumn) {
+        
+    	for ( int i = 0; i < newTable.length; i+=1 ) {
+    		if ( i != permittedLine ) {
+	    		for ( int j = 0; j < newTable[i].length; j+=1 ) {
+	    			if ( j != permittedColumn ) {
+	    				double value = simplexTable[i][j].getTop() + simplexTable[i][j].getBottom();
+	    				newTable[i][j] = new Cell(value);
+	    			}
+	    		}
+    		}
+    	}
+    }
+
+    private void swapBasicWithNonBasicVariable(int permittedLine, int permittedColumn) {
+    	int correctIndex = -1;
+        int currentNonBasicVariable = nonBasicVariables[permittedColumn+correctIndex];
+        nonBasicVariables[permittedColumn+correctIndex] = basicVariables[permittedLine+correctIndex];
+        basicVariables[permittedLine+correctIndex] = currentNonBasicVariable;
     }
 
     public int getPermittedLine(int permittedColumn) {
