@@ -43,6 +43,7 @@ public class Expression {
 		this.objective = objective;
 		this.objectiveFunction = objectiveFunction;
 		this.constraintSigns = constraintSigns;
+		this.constraints = constraints;
 		this.b = b;
 	}
 	
@@ -71,6 +72,11 @@ public class Expression {
 	}
 
 
+	public int getConstraint(int l, int j) {
+		return constraints[l][j];
+	}
+
+
 	public int[] getConstraintSigns() {
 		return constraintSigns;
 	}
@@ -88,5 +94,13 @@ public class Expression {
 
 	public int getB(int l) {
 		return b[l];
+	}
+	
+	public int countBasicVariables() {
+		return constraints.length;
+	}
+	
+	public int countNonBasicVariables() {
+		return constraints[0].length;
 	}
 }

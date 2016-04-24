@@ -111,4 +111,26 @@ public class ExpressionTest {
 		int[] constraintSign = {Expression.CONSTRAINT_SIGN_EQ, Expression.CONSTRAINT_SIGN_LT+1, Expression.CONSTRAINT_SIGN_GT};
 		e = new Expression(Expression.OBJECTIVE_MAX, new int[2], new int[3][2], constraintSign, new int [3]);
 	}
+
+	private Expression getDefaultExpression() throws Exception {
+		int objective = Expression.OBJECTIVE_MAX;
+		int[] objectiveFunction = {80, 60};
+		int[][] constraints = {{4, 6}, {4, 2}, {0, 1}};
+		int[] constraintSigns = {Expression.CONSTRAINT_SIGN_GT, Expression.CONSTRAINT_SIGN_LT, Expression.CONSTRAINT_SIGN_LT};
+		int[] b = {24, 16, 3};
+
+		return new Expression(objective, objectiveFunction, constraints, constraintSigns, b);
+	}
+	
+	@Test
+	public void countBasicVariables() throws Exception {
+		Expression e = getDefaultExpression();
+		assertEquals(3, e.countBasicVariables());
+	}
+	
+	@Test
+	public void countNonBasicVariables() throws Exception {
+		Expression e = getDefaultExpression();
+		assertEquals(2, e.countNonBasicVariables());
+	}
 }
