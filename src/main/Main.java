@@ -5,6 +5,15 @@ import simplex.Simplex;
 
 public class Main {
 
+	private static void printResult(double[] answer) {
+		System.out.print("{");
+		System.out.print("\"z\": "+answer[0]);
+		for ( int i = 1; i < answer.length; i+=1 ) {
+			System.out.print(", \"x"+i+"\": "+ answer[i]);
+		}
+		System.out.print("}");
+	}
+
 	public static void main(String[] args) {
 
 		Expression exp;
@@ -16,11 +25,9 @@ public class Main {
 		try {
 			exp = new Expression(objective, objectiveFunction, constraints, constraintSigns, b);
 			double[] answer = Simplex.getInstance().start(exp);
-			
-			System.out.println("f(x)="+answer[0]);
-			for ( int i = 1; i < answer.length; i+=1 ) {
-				System.out.println("x"+i+"= "+answer[i]);
-			}
+
+			printResult(answer);
+
 		} catch ( Exception e ) {
 			System.out.println("Ooops");
 			e.printStackTrace();
