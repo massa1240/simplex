@@ -1,6 +1,14 @@
 angular.module('simplexApp', [])
   .controller('SimplexController', function($scope) {
 
+    $scope.constraintSignOptions = [ 
+      { id: 0, name: '≥' },
+      { id: 1, name: '≤' },
+      { id: 2, name: '=' }
+    ]
+
+    $scope.constraintSigns = [ 0, 0 ]
+
     $scope.defaultValue = 0;
 
     $scope.constraints = [
@@ -20,6 +28,7 @@ angular.module('simplexApp', [])
       }
       $scope.constraints.push( arr );
       $scope.b.push( $scope.defaultValue );
+      $scope.constraintSigns.push( $scope.defaultValue );
     };
     
     $scope.removeVariable = function(index) {
@@ -37,6 +46,7 @@ angular.module('simplexApp', [])
       if ($scope.constraints.length > 2) {
         $scope.constraints.splice(index, 1);
         $scope.b.splice(index, 1);
+        $scope.constraintSigns.splice(index, 1);
       } else {
         alert("You must have at least two constraints.");
       }

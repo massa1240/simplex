@@ -75,10 +75,10 @@
                 <label for="objectFunction-{{$parent.$index}}-{{$index}}">x{{$index+1}}</label>
               </td>
               <td>
-                <select>
-                  <option>≥</option>
-                  <option>≤</option>
-                  <option>=</option>
+                <select name="constraintSigns[$index]" ng-model="constraintSigns[$index]">
+                  <option value="0" ng-selected="constraintSigns[$index] == 0">≥</option>
+                  <option value="1" ng-selected="constraintSigns[$index] == 1">≤</option>
+                  <option value="2" ng-selected="constraintSigns[$index] == 2">=</option>
                 </select>
               </td>
               <td>
