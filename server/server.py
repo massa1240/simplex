@@ -1,5 +1,6 @@
 from flask import Flask
 from subprocess import *
+from flask import render_template
 app = Flask(__name__)
 
 def jarWrapper(*args):
@@ -13,8 +14,8 @@ def jarWrapper(*args):
     return ret
 
 @app.route("/")
-def hello():
-	return ""
+def index():
+	return render_template('index.html')
 
 @app.route("/simplex")
 def simplex():
@@ -23,4 +24,4 @@ def simplex():
 	return result[0]
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
