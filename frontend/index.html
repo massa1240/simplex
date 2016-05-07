@@ -1,7 +1,8 @@
 <!doctype html>
-<html class="no-js" lang="" ng-app>
+<html class="no-js" lang="" ng-app="simplexApp">
     <head>
         <script src="js/vendor/angular.min.js"></script>
+        <script src="js/controllers/simplex.js"></script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title></title>
@@ -41,9 +42,53 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" ng-controller="SimplexController">
       <!-- Example row of columns -->
+
+      <div class="row simplex-controls">
+        <div class="col-sm-12">
+          <button class="btn btn-primary"><i class="glyphicon glyphicon-fire"></i> Get results</button>
+          <button ng-click="addVariable()" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add variable</button>
+          <button ng-click="addConstraint()" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add constraint</button>
+        </div>
+      </div>
       
+      <div class="expression">
+        <table class="table">
+          <thead>
+            <th>Z = </th>
+            <th ng-repeat="variable in objectiveFunction track by $index">
+              <span><button class="remove" ng-click="removeVariable($index)"><i class="glyphicon glyphicon-minus"></i></button></span>
+              <input id="objectFunction-{{$index}}" name="objectiveFunction[$index]" ng-model="objectiveFunction[$index]">
+              <label for="objectFunction-{{$index}}">x{{$index+1}}</label>
+            </th>
+            <th></th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="constraint in constraints">
+              <td class="controls">
+                <button class="remove" ng-click="removeConstraint($index)"><i class="glyphicon glyphicon-minus"></i></button>
+              </td>
+              <td class="expression-col" ng-repeat="variable in constraint track by $index">
+                <input id="objectFunction-{{$parent.$index}}-{{$index}}" name="constraints[$parent.$index][$index]" ng-model="constraints[$parent.$index][$index]">
+                <label for="objectFunction-{{$parent.$index}}-{{$index}}">x{{$index+1}}</label>
+              </td>
+              <td>
+                <select>
+                  <option>≥</option>
+                  <option>≤</option>
+                  <option>=</option>
+                </select>
+              </td>
+              <td>
+                <input name="b[$index]" ng-model="b[$index]">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <hr>
 
       <footer>

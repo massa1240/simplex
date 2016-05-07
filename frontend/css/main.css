@@ -3,20 +3,54 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+.simplex-controls {
+	margin-bottom: 15px;
+}
 
+.expression {
+	overflow: scroll;
+}
 
+.expression table {
+	width: auto;
+}
+.expression td.expression-col {
+	min-width: 150px;
+	padding-left: 8px;
+	padding-right: 25px;
+}
 
+.expression td.controls {
+	width: 25px;
+	text-align: center;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+button.remove {
+	background: none;
+	border: 0;
+	color: #FFA9A9;
+}
+button.remove:hover {
+	color: red;
+	cursor: pointer;
+}
 
+.expression th span {
+	width: 100%;
+	display: block;
+	visibility: hidden;
+	margin-left: 25px;
+}
+.expression th:hover span {
+	visibility: visible;
+}
 
+.expression th:first-child {
+	text-align: right;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.expression input {
+	width: 80px;
+	text-align: right;
+}
