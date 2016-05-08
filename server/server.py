@@ -21,12 +21,13 @@ def index():
 def simplex():
 	params = request.get_json()
 
+	objective = params['objective']
 	objective_function = params['objectiveFunction']
 	constraints = params['constraints']
 	constraintSigns = params['constraintSigns']
 	b = params['b']
 
-	args = ['simplex.jar'] + [len(objective_function), len(constraints), '2'] + objective_function
+	args = ['simplex.jar'] + [len(objective_function), len(constraints), objective] + objective_function
 
 	for constraint in constraints:
 		for i in constraint:
