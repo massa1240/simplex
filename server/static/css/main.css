@@ -54,3 +54,8 @@ button.remove:hover {
 	width: 80px;
 	text-align: right;
 }
+
+input.ng-invalid.ng-touched {
+    border-color: #FA787E;
+    background-color: #FFE0E2;
+  }
