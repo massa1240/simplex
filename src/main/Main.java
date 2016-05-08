@@ -12,10 +12,24 @@ public class Main {
 
 	private static void printResult(double[] answer) {
 		System.out.print("{");
-		System.out.print("\"z\": "+answer[0]);
+		System.out.print("\"error\": "+false+", ");
+		System.out.print("\"z\": "+answer[0]+", ");
+		System.out.print("\"answers\": {");
 		for ( int i = 1; i < answer.length; i+=1 ) {
-			System.out.print(", \"x"+i+"\": "+ answer[i]);
+			System.out.print("\"x"+i+"\": "+ answer[i]);
+			if (i != answer.length-1) {
+				System.out.print(", ");
+			}
 		}
+		System.out.print("}");
+		System.out.print("}");
+	}
+
+	private static void printError(String error, int code) {
+		System.out.print("{");
+		System.out.print("\"error\": "+true+", ");
+		System.out.print("\"code\": "+code+", ");
+		System.out.print("\"msg\": \""+error+"\"");
 		System.out.print("}");
 	}
 
@@ -84,8 +98,7 @@ public class Main {
 			printResult(answer);
 
 		} catch ( Exception e ) {
-			System.out.println("Ooops");
-			e.printStackTrace();
+			printError(e.getMessage(), Simplex.getInstance().getStatus());
 		}
 
 	}
