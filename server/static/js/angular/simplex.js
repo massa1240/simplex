@@ -17,9 +17,10 @@ angular.module('simplexApp', [])
   })
   .controller('SimplexController', ['$scope','SimplexService', function($scope, SimplexService) {
 
-    $scope.constraintSigns = [ 0, 0 ]
-
+    $scope.defaultSignValue = 2;
     $scope.defaultValue = 0;
+
+    $scope.constraintSigns = [ $scope.defaultSignValue, $scope.defaultSignValue ]
 
     $scope.constraints = [
       [ $scope.defaultValue, $scope.defaultValue ],
@@ -42,7 +43,7 @@ angular.module('simplexApp', [])
       }
       $scope.constraints.push( arr );
       $scope.b.push( $scope.defaultValue );
-      $scope.constraintSigns.push( $scope.defaultValue );
+      $scope.constraintSigns.push( $scope.defaultSignValue );
     };
     
     $scope.removeVariable = function(index) {
