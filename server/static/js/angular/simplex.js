@@ -1,11 +1,12 @@
 angular.module('simplexApp', [])
   .service('SimplexService', function ($http) {
    
-    this.calculate = function (objectiveFunction, constraints, constraintSigns, b) {
+    this.calculate = function (objective, objectiveFunction, constraints, constraintSigns, b) {
 
       return $http({
         method: 'POST',
         data: {
+          objective: objective,
           objectiveFunction: objectiveFunction,
           constraints: constraints,
           constraintSigns: constraintSigns,
