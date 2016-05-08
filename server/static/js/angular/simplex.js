@@ -1,11 +1,21 @@
 angular.module('simplexApp', [])
-  .controller('SimplexController', function($scope) {
+  .service('SimplexService', function ($http) {
+   
+    this.calculate = function (objectiveFunction, constraints, constraintSigns, b) {
 
-    $scope.constraintSignOptions = [ 
-      { id: 0, name: '≥' },
-      { id: 1, name: '≤' },
-      { id: 2, name: '=' }
-    ]
+      return $http({
+        method: 'POST',
+        data: {
+          objectiveFunction: objectiveFunction,
+          constraints: constraints,
+          constraintSigns: constraintSigns,
+          b: b
+        },
+        url: '/simplex'
+      });
+    }
+  })
+  .controller('SimplexController', ['$scope','SimplexService', function($scope, SimplexService) {
 
     $scope.constraintSigns = [ 0, 0 ]
 
@@ -19,7 +29,11 @@ angular.module('simplexApp', [])
     $scope.b = [ $scope.defaultValue, $scope.defaultValue ];
 
     $scope.objectiveFunction = [ $scope.defaultValue, $scope.defaultValue ];
-    
+
+    $scope.calculate = function() {
+      SimplexService.calculate($scope.objectiveFunction, $scope.constraints, $scope.constraintSigns, $scope.b);
+    }
+
     $scope.addConstraint = function() {
 
       arr = [];
@@ -60,4 +74,4 @@ angular.module('simplexApp', [])
     };
     
     
-  });
+  }]);

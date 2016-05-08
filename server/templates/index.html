@@ -2,7 +2,8 @@
 <html class="no-js" lang="" ng-app="simplexApp">
     <head>
         <script src="{{ url_for('static', filename='js/vendor/angular.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/controllers/simplex.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/angular/simplex.js') }}"></script>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title></title>
@@ -47,7 +48,7 @@
 
       <div class="row simplex-controls">
         <div class="col-sm-12">
-          <button class="btn btn-primary"><i class="glyphicon glyphicon-fire"></i> Get results</button>
+          <button ng-click="calculate()" class="btn btn-primary"><i class="glyphicon glyphicon-fire"></i> Get results</button>
           <button ng-click="addVariable()" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add variable</button>
           <button ng-click="addConstraint()" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add constraint</button>
         </div>
@@ -107,6 +108,5 @@
         <script>window.jQuery || document.write('<script src="{{url_for('static', filename='js/vendor/jquery-1.11.2.min.js') }}"><\/script>')</script>
 
         <script src="{{ url_for('static', filename='js/vendor/bootstrap.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     </body>
 </html>
