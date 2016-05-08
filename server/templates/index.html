@@ -57,7 +57,9 @@
       <div class="expression">
         <table class="table">
           <thead>
-            <th>Z = </th>
+            <th>
+              Z = 
+            </th>
             <th ng-repeat="variable in objectiveFunction track by $index">
               <span><button class="remove" ng-click="removeVariable($index)"><i class="glyphicon glyphicon-minus"></i></button></span>
               {% raw %}
@@ -65,7 +67,12 @@
               <label for="objectFunction-{{$index}}">x{{$index+1}}</label>
               {% endraw %}
             </th>
-            <th></th>
+            <th>
+              <select name="objective" ng-model="objective">
+                <option value="1" ng-selected="objective == 1">MIN</option>
+                <option value="2" ng-selected="objective == 2">MAX</option>
+              </select>
+            </th>
             <th></th>
           </thead>
           <tbody>

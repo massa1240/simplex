@@ -28,12 +28,14 @@ angular.module('simplexApp', [])
       [ $scope.defaultValue, $scope.defaultValue ]
     ];
 
+    $scope.objective = 2;
+
     $scope.b = [ $scope.defaultValue, $scope.defaultValue ];
 
     $scope.objectiveFunction = [ $scope.defaultValue, $scope.defaultValue ];
 
     $scope.calculate = function() {
-      SimplexService.calculate($scope.objectiveFunction, $scope.constraints, $scope.constraintSigns, $scope.b);
+      SimplexService.calculate($scope.objective, $scope.objectiveFunction, $scope.constraints, $scope.constraintSigns, $scope.b);
     }
 
     $scope.addConstraint = function() {
