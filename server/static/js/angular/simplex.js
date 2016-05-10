@@ -1,11 +1,12 @@
 angular.module('simplexApp', [])
   .service('SimplexService', function ($http) {
    
-    this.calculate = function (objectiveFunction, constraints, constraintSigns, b) {
+    this.calculate = function (objective, objectiveFunction, constraints, constraintSigns, b) {
 
       return $http({
         method: 'POST',
         data: {
+          objective: objective,
           objectiveFunction: objectiveFunction,
           constraints: constraints,
           constraintSigns: constraintSigns,
@@ -17,21 +18,24 @@ angular.module('simplexApp', [])
   })
   .controller('SimplexController', ['$scope','SimplexService', function($scope, SimplexService) {
 
-    $scope.constraintSigns = [ 0, 0 ]
-
+    $scope.defaultSignValue = 2;
     $scope.defaultValue = 0;
+
+    $scope.constraintSigns = [ $scope.defaultSignValue, $scope.defaultSignValue ]
 
     $scope.constraints = [
       [ $scope.defaultValue, $scope.defaultValue ],
       [ $scope.defaultValue, $scope.defaultValue ]
     ];
 
+    $scope.objective = 2;
+
     $scope.b = [ $scope.defaultValue, $scope.defaultValue ];
 
     $scope.objectiveFunction = [ $scope.defaultValue, $scope.defaultValue ];
 
     $scope.calculate = function() {
-      SimplexService.calculate($scope.objectiveFunction, $scope.constraints, $scope.constraintSigns, $scope.b);
+      SimplexService.calculate($scope.objective, $scope.objectiveFunction, $scope.constraints, $scope.constraintSigns, $scope.b);
     }
 
     $scope.addConstraint = function() {
@@ -42,7 +46,7 @@ angular.module('simplexApp', [])
       }
       $scope.constraints.push( arr );
       $scope.b.push( $scope.defaultValue );
-      $scope.constraintSigns.push( $scope.defaultValue );
+      $scope.constraintSigns.push( $scope.defaultSignValue );
     };
     
     $scope.removeVariable = function(index) {

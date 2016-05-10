@@ -55,43 +55,52 @@
       </div>
       
       <div class="expression">
-        <table class="table">
-          <thead>
-            <th>Z = </th>
-            <th ng-repeat="variable in objectiveFunction track by $index">
-              <span><button class="remove" ng-click="removeVariable($index)"><i class="glyphicon glyphicon-minus"></i></button></span>
-              {% raw %}
-              <input id="objectFunction-{{$index}}" name="objectiveFunction[$index]" ng-model="objectiveFunction[$index]">
-              <label for="objectFunction-{{$index}}">x{{$index+1}}</label>
-              {% endraw %}
-            </th>
-            <th></th>
-            <th></th>
-          </thead>
-          <tbody>
-            <tr ng-repeat="constraint in constraints">
-              <td class="controls">
-                <button class="remove" ng-click="removeConstraint($index)"><i class="glyphicon glyphicon-minus"></i></button>
-              </td>
-              <td class="expression-col" ng-repeat="variable in constraint track by $index">
+        <form novalidate>
+          <table class="table">
+            <thead>
+              <th>
+                Z = 
+              </th>
+              <th ng-repeat="variable in objectiveFunction track by $index">
+                <span><button class="remove" ng-click="removeVariable($index)"><i class="glyphicon glyphicon-minus"></i></button></span>
                 {% raw %}
-                <input id="objectFunction-{{$parent.$index}}-{{$index}}" name="constraints[$parent.$index][$index]" ng-model="constraints[$parent.$index][$index]">
-                <label for="objectFunction-{{$parent.$index}}-{{$index}}">x{{$index+1}}</label>
+                <input type="number" min="0" step="0.5" id="objectFunction-{{$index}}" name="objectiveFunction[$index]" ng-model="objectiveFunction[$index]" required>
+                <label for="objectFunction-{{$index}}">x{{$index+1}}</label>
                 {% endraw %}
-              </td>
-              <td>
-                <select name="constraintSigns[$index]" ng-model="constraintSigns[$index]">
-                  <option value="0" ng-selected="constraintSigns[$index] == 0">≥</option>
-                  <option value="1" ng-selected="constraintSigns[$index] == 1">≤</option>
-                  <option value="2" ng-selected="constraintSigns[$index] == 2">=</option>
+              </th>
+              <th>
+                <select name="objective" ng-model="objective" required>
+                  <option value="1" ng-selected="objective == 1">MIN</option>
+                  <option value="2" ng-selected="objective == 2">MAX</option>
                 </select>
-              </td>
-              <td>
-                <input name="b[$index]" ng-model="b[$index]">
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              </th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="constraint in constraints">
+                <td class="controls">
+                  <button class="remove" ng-click="removeConstraint($index)"><i class="glyphicon glyphicon-minus"></i></button>
+                </td>
+                <td class="expression-col" ng-repeat="variable in constraint track by $index">
+                  {% raw %}
+                  <input type="number" min="0" step="0.5" id="objectFunction-{{$parent.$index}}-{{$index}}" name="constraints[$parent.$index][$index]" ng-model="constraints[$parent.$index][$index]" required>
+                  <label for="objectFunction-{{$parent.$index}}-{{$index}}">x{{$index+1}}</label>
+                  {% endraw %}
+                </td>
+                <td>
+                  <select name="constraintSigns[$index]" ng-model="constraintSigns[$index]" required>
+                    <option value="2" ng-selected="constraintSigns[$index] == 2">≥</option>
+                    <option value="3" ng-selected="constraintSigns[$index] == 3">≤</option>
+                    <option value="1" ng-selected="constraintSigns[$index] == 1">=</option>
+                  </select>
+                </td>
+                <td>
+                  <input type="number" min="0" step="0.5" name="b[$index]" ng-model="b[$index]" required>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
       </div>
 
       <hr>
