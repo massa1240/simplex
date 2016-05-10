@@ -35,7 +35,25 @@ angular.module('simplexApp', [])
     $scope.objectiveFunction = [ $scope.defaultValue, $scope.defaultValue ];
 
     $scope.calculate = function() {
-      SimplexService.calculate($scope.objective, $scope.objectiveFunction, $scope.constraints, $scope.constraintSigns, $scope.b);
+      SimplexService.calculate($scope.objective, $scope.objectiveFunction, $scope.constraints, $scope.constraintSigns, $scope.b)
+        .then(function(response) {
+          if (! response.data.error) {
+            msg = "<strong>Z</strong> = "+response.data.z;
+            angular.forEach(response.data.answers, function(v, k) {
+              msg += ", <strong>"+k+"</strong> = "+v;
+            });
+
+            swal({title: "We have found the optimal result!",
+                  type: "success",
+                  text: msg,
+                  html: true
+                });
+          } else {
+            if ( response.data.code ) {
+              swal(response.data.msg, "", "warning");
+            }
+          }
+        });
     }
 
     $scope.addConstraint = function() {
