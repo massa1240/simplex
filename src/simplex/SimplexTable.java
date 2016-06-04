@@ -194,7 +194,7 @@ class SimplexTable {
             double freeMember = simplexTable[i][0].getTop();
             double permittedElement = simplexTable[i][permittedColumn].getTop();
 
-            if ( (freeMember <= 0 && permittedElement < 0) || (freeMember >= 0 && permittedElement > 0)) {
+            if ( (freeMember < 0 && permittedElement < 0) || (freeMember > 0 && permittedElement > 0)) {
                 double x = freeMember / permittedElement;
                 if ( x < minQuotient ) {
                     minQuotient = x;
