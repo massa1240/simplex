@@ -1,6 +1,6 @@
 package simplex;
 
-class SimplexTable {
+public class SimplexTable {
 
     Expression e;
     private Cell[][] simplexTable;

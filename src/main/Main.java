@@ -1,5 +1,6 @@
 package main;
 
+import branch_and_boud.BranchAndBound;
 import simplex.Expression;
 import simplex.Simplex;
 
@@ -90,9 +91,15 @@ public class Main {
 
 		try {
 			exp = readArgs(args);
-			double[] answer = Simplex.getInstance().start(exp);
+			
+			
+//			double[] answer = Simplex.getInstance().start(exp);
 
+			double[] answer = BranchAndBound.getInstance().start(exp);
+			
 			printResult(answer);
+			
+			
 
 		} catch ( Exception e ) {
 			printError(e.getMessage(), Simplex.getInstance().getStatus());
