@@ -1,4 +1,4 @@
-angular.module('simplexApp', [])
+angular.module('simplexApp', ['timer'])
   .service('SimplexService', function ($http) {
    
     this.calculate = function (objective, objectiveFunction, constraints, constraintSigns, b) {
@@ -35,6 +35,7 @@ angular.module('simplexApp', [])
     $scope.objectiveFunction = [ $scope.defaultValue, $scope.defaultValue ];
 
     $scope.calculate = function() {
+      $scope.$broadcast('timer-start');
       SimplexService.calculate($scope.objective, $scope.objectiveFunction, $scope.constraints, $scope.constraintSigns, $scope.b)
         .then(function(response) {
           if (! response.data.error) {
@@ -53,6 +54,7 @@ angular.module('simplexApp', [])
               swal(response.data.msg, "", "warning");
             }
           }
+          $scope.$broadcast('timer-stop');
         });
     }
 

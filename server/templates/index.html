@@ -1,8 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="" ng-app="simplexApp">
     <head>
+        <script src="{{ url_for('static', filename='js/vendor/moment.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/vendor/sweetalert.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/vendor/angular.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/vendor/angular-timer-all.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/angular/simplex.js') }}"></script>
 
         <meta charset="utf-8">
@@ -53,6 +55,9 @@
           <button ng-click="calculate()" class="btn btn-primary"><i class="glyphicon glyphicon-fire"></i> Get results</button>
           <button ng-click="addVariable()" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add variable</button>
           <button ng-click="addConstraint()" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add constraint</button>
+          {% raw %}
+            <timer class="pull-right" autostart="false">{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}, {{millis}} millisecond{{millisS}}.</timer>
+          {% endraw %}
         </div>
       </div>
       

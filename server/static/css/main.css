@@ -58,4 +58,8 @@ button.remove:hover {
 input.ng-invalid.ng-touched {
     border-color: #FA787E;
     background-color: #FFE0E2;
-  }
+}
+
+timer {
+	font-size: 25px;
+}
