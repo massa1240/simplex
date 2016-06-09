@@ -10,14 +10,14 @@ public class Expression {
 	public static int CONSTRAINT_SIGN_LT = 3;
 	
 	private int objective;
-	private int[] objectiveFunction;
-	private int[][] constraints;
-	private int[] constraintSigns;
-	private int[] b;
+	private double[] objectiveFunction;
+	private double[][] constraints;
+	private double[] constraintSigns;
+	private double[] b;
 	
 	
-	public Expression(int objective, int[] objectiveFunction, int[][] constraints, 
-						int[] constraintSigns, int[] b) throws Exception {
+	public Expression(int objective, double[] objectiveFunction, double[][] constraints, 
+			double[] constraintSigns, double[] b) throws Exception {
 		
 		int nDecVariables = objectiveFunction.length;
 		int nConstraints = constraints.length;
@@ -57,42 +57,42 @@ public class Expression {
 	}
 
 
-	public int[] getObjectiveFunction() {
+	public double[] getObjectiveFunction() {
 		return objectiveFunction;
 	}
 
 
-	public int[][] getConstraints() {
+	public double[][] getConstraints() {
 		return constraints;
 	}
 
 
-	public int[] getConstraint(int l) {
+	public double[] getConstraint(int l) {
 		return constraints[l];
 	}
 
 
-	public int getConstraint(int l, int j) {
+	public double getConstraint(int l, int j) {
 		return constraints[l][j];
 	}
 
 
-	public int[] getConstraintSigns() {
+	public double[] getConstraintSigns() {
 		return constraintSigns;
 	}
 
 
-	public int getConstraintSign(int l) {
+	public double getConstraintSign(int l) {
 		return constraintSigns[l];
 	}
 
 
-	public int[] getB() {
+	public double[] getB() {
 		return b;
 	}
 
 
-	public int getB(int l) {
+	public double getB(int l) {
 		return b[l];
 	}
 	
