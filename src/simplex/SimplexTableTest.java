@@ -9,10 +9,10 @@ public class SimplexTableTest {
 
 	private Expression getDefaultExpression() throws Exception {
 		int objective = Expression.OBJECTIVE_MAX;
-		int[] objectiveFunction = {80, 60};
-		int[][] constraints = {{4, 6}, {4, 2}, {0, 1}};
-		int[] constraintSigns = {Expression.CONSTRAINT_SIGN_GT, Expression.CONSTRAINT_SIGN_LT, Expression.CONSTRAINT_SIGN_LT};
-		int[] b = {24, 16, 3};
+		double[] objectiveFunction = {80, 60};
+		double[][] constraints = {{4, 6}, {4, 2}, {0, 1}};
+		double[] constraintSigns = {Expression.CONSTRAINT_SIGN_GT, Expression.CONSTRAINT_SIGN_LT, Expression.CONSTRAINT_SIGN_LT};
+		double[] b = {24, 16, 3};
 
 		return new Expression(objective, objectiveFunction, constraints, constraintSigns, b);
 	}

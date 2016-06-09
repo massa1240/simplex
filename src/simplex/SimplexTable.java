@@ -27,7 +27,7 @@ class SimplexTable {
     private void populateObjectiveFunction() {
         simplexTable[0][0] = new Cell();
 
-        int[] objectiveFunction = e.getObjectiveFunction();
+        double[] objectiveFunction = e.getObjectiveFunction();
         int multiplier;
         if (e.getObjective() == Expression.OBJECTIVE_MAX) {
             multiplier = 1;
