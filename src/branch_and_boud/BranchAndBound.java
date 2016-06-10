@@ -2,7 +2,6 @@ package branch_and_boud;
 
 import simplex.Expression;
 import simplex.Simplex;
-import simplex.SimplexTable;
 
 public class BranchAndBound {
 
@@ -56,8 +55,8 @@ public class BranchAndBound {
 
 	public Expression getNewExpressionFloor(double constraint, int position, Expression e) throws Exception {
 		
-		int [][] newConstraints = new int[e.getConstraints().length + 1][e.getConstraints()[0].length];
-		int [] newConstraintSigns = new int[e.getConstraints().length + 1]; 
+		double[][] newConstraints = new double[e.getConstraints().length + 1][e.getConstraints()[0].length];
+		double[] newConstraintSigns = new double[e.getConstraints().length + 1]; 
 		
 		for (int i = 0; i < e.getConstraints().length; i++) {
 			for (int j = 0; j < e.getConstraints()[0].length; j++) {
@@ -75,8 +74,8 @@ public class BranchAndBound {
 
 	public Expression getNewExpressionCeil(double constraint, int position, Expression e) throws Exception {
 		
-		int [][] newConstraints = new int[e.getConstraints().length + 1][e.getConstraints()[0].length];
-		int [] newConstraintSigns = new int[e.getConstraints().length + 1]; 
+		double[][] newConstraints = new double[e.getConstraints().length + 1][e.getConstraints()[0].length];
+		double[] newConstraintSigns = new double[e.getConstraints().length + 1]; 
 		
 		for (int i = 0; i < e.getConstraints().length; i++) {
 			for (int j = 0; j < e.getConstraints()[0].length; j++) {
