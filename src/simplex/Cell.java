@@ -1,5 +1,8 @@
 package simplex;
 
+/**
+* Simplex cell data structure
+*/
 class Cell{
 	
 	private double top, bottom;

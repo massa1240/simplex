@@ -1,5 +1,8 @@
 package simplex;
 
+/**
+ * Expression data structure
+ */
 public class Expression {
 
 	public static int OBJECTIVE_MIN = 1;

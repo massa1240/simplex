@@ -1,5 +1,8 @@
 package simplex;
 
+/**
+ * Simplex table data structure.
+ */
 class SimplexTable {
 
     Expression e;
@@ -16,6 +19,9 @@ class SimplexTable {
         this.setBasicVariables();
     }
 
+    /**
+     * Creates the table
+     */
     private void createSimplexTable() {
         this.basicVariables = new int[e.countBasicVariables()];
         this.nonBasicVariables = new int[e.countNonBasicVariables()];
@@ -24,6 +30,9 @@ class SimplexTable {
         simplexTable = new Cell[rows][cols];
     }
 
+    /**
+     * Populates the table with the objective function values.
+     */
     private void populateObjectiveFunction() {
         simplexTable[0][0] = new Cell();
 
@@ -40,6 +49,9 @@ class SimplexTable {
         }
     }
     
+    /**
+     * Populates the table with the constraint values.
+     */
     private void populateConstraints() {
         for ( int i = 1; i <= basicVariables.length; i+=1) {
             int multiplier;
@@ -96,6 +108,9 @@ class SimplexTable {
         return -1;
     }
 
+    /**
+     * The change algorithm thaugh in class.
+     */
     public void changeAlgorithm(int permittedLine, int permittedColumn){
         double allowedElement = simplexTable[permittedLine][permittedColumn].getTop();
         //Calculates the multiplicative inverse of the allowed element
@@ -116,6 +131,9 @@ class SimplexTable {
 
     }
 
+    /**
+     * Step 2 of change algorithm.
+     */
     private void multiplyPermittedLineByInverse(int permittedLine, int permittedColumn, double inverse) {
         for ( int j = 0; j < simplexTable[0].length; j+=1 ) {
             if( j != permittedColumn ){	// IS NOT ALLOWED ELEMENT
@@ -124,6 +142,9 @@ class SimplexTable {
         }
     }
 
+    /**
+     * Step 3 of change algorithm.
+     */
     private void multiplyPermittedColumnByNegativeInverse(int permittedLine, int permittedColumn, double inverse) {
         for( int i = 0; i < simplexTable.length; i+=1 ){
             if( i != permittedLine ){   // IS NOT ALLOWED ELEMENT
@@ -132,6 +153,9 @@ class SimplexTable {
         }
     }
 
+    /**
+     * Step 5/6 of change algorithm.
+     */
     private void multiplyLowerSubcells(int permittedLine, int permittedColumn) {
         for ( int i = 0; i < simplexTable.length; i+=1 ) {
             if ( i != permittedLine ) {
@@ -145,6 +169,9 @@ class SimplexTable {
         }
     }
 
+    /**
+     * Step 7 of change algorithm.
+     */
     private void redoTable(int permittedLine, int permittedColumn) {
         Cell[][] newTable = new Cell[simplexTable.length][simplexTable[0].length];
         
@@ -154,6 +181,9 @@ class SimplexTable {
         simplexTable = newTable;
     }
 
+    /**
+     * Step 8 of change algorithm.
+     */
     private void copySubCells(Cell[][] newTable, int permittedLine, int permittedColumn) {
         // copy lower sub-cells of permitted line and column to upper sub-cells
         for ( int i = 0; i < newTable.length; i+=1 ) {
@@ -165,6 +195,9 @@ class SimplexTable {
         }
     }
 
+    /**
+     * Step 9 of change algorithm.
+     */
     private void sumLeftSubCells(Cell[][] newTable, int permittedLine, int permittedColumn) {
         
     	for ( int i = 0; i < newTable.length; i+=1 ) {
@@ -179,6 +212,9 @@ class SimplexTable {
     	}
     }
 
+    /**
+     * Step 10 of change algorithm.
+     */
     private void swapBasicWithNonBasicVariable(int permittedLine, int permittedColumn) {
     	int correctIndex = -1;
         int currentNonBasicVariable = nonBasicVariables[permittedColumn+correctIndex];
@@ -186,6 +222,9 @@ class SimplexTable {
         basicVariables[permittedLine+correctIndex] = currentNonBasicVariable;
     }
 
+    /**
+     * Finds the permitted line using from the permitted column.
+     */
     public int getPermittedLine(int permittedColumn) {
         int permittedLine = -1;
         double minQuotient = Double.MAX_VALUE;
@@ -206,6 +245,9 @@ class SimplexTable {
         return permittedLine;
     }
 
+    /**
+     * Get an array with of the variables and their respective values.
+     */
     public double[] getCurrentVariablesValues() {
         double[] values = new double[basicVariables.length + nonBasicVariables.length+1];
 
