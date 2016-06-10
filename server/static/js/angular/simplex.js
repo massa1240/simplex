@@ -1,4 +1,8 @@
 angular.module('simplexApp', ['timer'])
+
+  /**
+   * Simplex service. Sends data to the server.
+   */
   .service('SimplexService', function ($http) {
 
    
@@ -39,6 +43,9 @@ angular.module('simplexApp', ['timer'])
 
     $scope.objectiveFunction = [ $scope.defaultValue, $scope.defaultValue ];
 
+    /**
+     * Calculate the row of a constraint using the final values of the objective function variables.
+     */
     $scope.calculateConstraintRow = function(row) {
 
       var answer = 0;
@@ -53,6 +60,9 @@ angular.module('simplexApp', ['timer'])
       return answer;
     }
 
+    /**
+     * Prepare and submit the simplex table to the server.
+     */
     $scope.calculate = function() {
       $scope.showResults = false;
       $scope.$broadcast('timer-start');
@@ -77,6 +87,9 @@ angular.module('simplexApp', ['timer'])
         });
     }
 
+    /**
+     * Add a constraint.
+     */
     $scope.addConstraint = function() {
 
       arr = [];
@@ -88,6 +101,9 @@ angular.module('simplexApp', ['timer'])
       $scope.constraintSigns.push( $scope.defaultSignValue );
     };
     
+    /**
+     * Remove a specific variable.
+     */
     $scope.removeVariable = function(index) {
       if ($scope.objectiveFunction.length > 2) {
         $scope.objectiveFunction.splice(index, 1);
@@ -99,6 +115,9 @@ angular.module('simplexApp', ['timer'])
       }
     }
     
+    /**
+     * Remove a specific variable.
+     */
     $scope.removeConstraint = function(index) {
       if ($scope.constraints.length > 2) {
         $scope.constraints.splice(index, 1);
@@ -109,6 +128,9 @@ angular.module('simplexApp', ['timer'])
       }
     }
 
+    /**
+     * Add a variable.
+     */
     $scope.addVariable = function() {
       $scope.objectiveFunction.push( $scope.defaultValue );
       angular.forEach($scope.constraints, function(value) {
