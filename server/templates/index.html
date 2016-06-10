@@ -50,6 +50,35 @@
     <div class="container" ng-controller="SimplexController">
       <!-- Example row of columns -->
 
+      <div class="expression" ng-show="showResults">
+        <table class="table sensitivity">
+          <thead>
+            <th style="min-width: 100px; text-align: left;">Description</th>
+            <th style="min-width: 150px;">Final Value</th>
+            <th style="min-width: 150px;">Shadow Price</th>
+          </thead>
+          <tbody>
+            {% raw %}
+              <tr>
+                <td>Z</td>
+                <td>{{objective == 2 ? z*-1 : z}}</td>
+                <td>-</td>
+              </tr>
+              <tr ng-repeat="(variable, value) in answer track by $index" ng-class='{divisor:$first}'>
+                <td>Variable {{variable}}</td>
+                <td>{{value}}</td>
+                <td>-</td>
+              </tr>
+              <tr ng-repeat="variable in constraints track by $index" ng-class='{divisor:$first}'>
+                <td>Constraint {{$index+1}}</td>
+                <td>{{calculateConstraintRow($index)}}</td>
+                <td>{{answerMap[objectiveFunction.length+$index] < 0 ? answerMap[objectiveFunction.length+$index]*-1 : 0 }}</td>
+              </tr>
+            {% endraw %}
+          </tbody>
+        </table>
+      </div>
+
       <div class="row simplex-controls">
         <div class="col-sm-12">
           <button ng-click="calculate()" class="btn btn-primary"><i class="glyphicon glyphicon-fire"></i> Get results</button>

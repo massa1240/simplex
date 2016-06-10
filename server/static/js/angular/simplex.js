@@ -1,5 +1,6 @@
 angular.module('simplexApp', ['timer'])
   .service('SimplexService', function ($http) {
+
    
     this.calculate = function (objective, objectiveFunction, constraints, constraintSigns, b) {
 
@@ -18,6 +19,10 @@ angular.module('simplexApp', ['timer'])
   })
   .controller('SimplexController', ['$scope','SimplexService', function($scope, SimplexService) {
 
+    $scope.showResults = false;
+    $scope.z;
+    $scope.answer = [];
+    $scope.answerMap = [];
     $scope.defaultSignValue = 2;
     $scope.defaultValue = 0;
 
@@ -34,20 +39,34 @@ angular.module('simplexApp', ['timer'])
 
     $scope.objectiveFunction = [ $scope.defaultValue, $scope.defaultValue ];
 
+    $scope.calculateConstraintRow = function(row) {
+
+      var answer = 0;
+      var i = 0;
+
+      angular.forEach($scope.constraints[row], function(v, k) {
+        if( $scope.answerMap[i] >= 0) {
+          answer += $scope.answerMap[i]*v;
+        }
+        i+=1;
+      });
+      return answer;
+    }
+
     $scope.calculate = function() {
+      $scope.showResults = false;
       $scope.$broadcast('timer-start');
       SimplexService.calculate($scope.objective, $scope.objectiveFunction, $scope.constraints, $scope.constraintSigns, $scope.b)
         .then(function(response) {
           if (! response.data.error) {
-            msg = "<strong>Z</strong> = "+response.data.z;
-            angular.forEach(response.data.answers, function(v, k) {
-              msg += ", <strong>"+k+"</strong> = "+v;
-            });
+            $scope.z = response.data.z;
+            $scope.answer = response.data.answers;
+            $scope.answerMap = $.map($scope.answer, function(el) { return el });
+            $scope.showResults = true;
 
             swal({title: "We have found the optimal result!",
                   type: "success",
-                  text: msg,
-                  html: true
+                  text: '',
                 });
           } else {
             if ( response.data.code ) {
