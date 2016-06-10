@@ -1,5 +1,8 @@
 package simplex;
 
+/**
+ * Simplex algorithm.
+ */
 public class Simplex{
 
     public static int STATUS_OPTIMAL_FOUND = 0;

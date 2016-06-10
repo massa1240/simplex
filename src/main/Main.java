@@ -3,6 +3,13 @@ package main;
 import simplex.Expression;
 import simplex.Simplex;
 
+/**
+ * Simplex assignment
+ *
+ * José Erimá Fernandes Júnior @massa1240
+ * Nayara Milagres Guimarães @nayaramg
+ * Wellington Santos Correa @WeltonSaint
+ */
 public class Main {
 
 	private static int nVariablesIndex = 0;
@@ -10,6 +17,9 @@ public class Main {
 	private static int objectiveIndex = 2;
 	private static int objectiveFunctionIndex = 3;
 
+	/**
+	 * Print result json
+	 */
 	private static void printResult(double[] answer) {
 		System.out.print("{");
 		System.out.print("\"error\": " + false + ", ");
@@ -25,6 +35,9 @@ public class Main {
 		System.out.print("}");
 	}
 
+	/**
+	 * Print error json
+	 */
 	private static void printError(String error, int code) {
 		System.out.print("{");
 		System.out.print("\"error\": " + true + ", ");
@@ -33,6 +46,9 @@ public class Main {
 		System.out.print("}");
 	}
 
+	/**
+	 * Read args
+	 */
 	private static Expression readArgs(String[] args) throws Exception {
 		int nVariables = Integer.parseInt(args[nVariablesIndex]);
 		int nConstraints = Integer.parseInt(args[nConstraintsIndex]);
@@ -83,7 +99,6 @@ public class Main {
 	 * 
 	 * @param args
 	 */
-
 	public static void main(String[] args) {
 
 		Expression exp;
